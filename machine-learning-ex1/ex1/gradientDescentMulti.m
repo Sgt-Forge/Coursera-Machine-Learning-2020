@@ -17,11 +17,16 @@ for iter = 1:num_iters
     %       of the cost function (computeCostMulti) and gradient here.
     %
 
-
-
-
-
-
+    % X => (m x n)
+    % theta => (n x 1)
+    % y => (m x 1)
+    % error => (m x 1) - (m x 1)
+    error = (X * theta) - y;
+    % error => (m x 1)
+    % Need to update thetas so we need (n x 1) - (n x 1)
+    % X' => (n x m) => (2 x m) in our example
+    % X' * error => (n x m) * (m x 1)
+    theta = theta - (alpha/m) * (X' * error);
 
 
 

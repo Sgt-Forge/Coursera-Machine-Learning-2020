@@ -26,7 +26,22 @@ sigma = zeros(1, size(X, 2));
 % Hint: You might find the 'mean' and 'std' functions useful.
 %       
 
-
+% X => (m x n) => (m x 2)
+% Calculate the mean for each training example in m
+% Using mean and std will calculate the mean and 
+% standard deviation for columns of the given matrix
+mu = mean(X);
+sigma = std(X);
+% Apply normalization
+% (x - mu) / sigma
+% Need to element-wise subtract mu from X
+% Actually the code `X - mu` will work, but it's probably
+% safer to ensure element-wise subtraction
+% then divide by sigma
+% X => (m x n)
+% mu => (1 x n)
+% sigma = (1 x n)
+X_norm = (X .- mu) ./ sigma;
 
 
 
