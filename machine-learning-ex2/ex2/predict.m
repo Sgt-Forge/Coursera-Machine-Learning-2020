@@ -15,6 +15,14 @@ p = zeros(m, 1);
 %               You should set p to a vector of 0's and 1's
 %
 
+% So the goal is to use sigmoid with theta and X to get percentatge likely hood
+    % of classifying as 1
+
+% X => (m x n)
+% theta => (n x 1)
+% X * theta => (m x n) * (n x 1) => (m x 1)
+h_theta = sigmoid(X * theta);
+p = (h_theta >= 0.5);
 
 
 
