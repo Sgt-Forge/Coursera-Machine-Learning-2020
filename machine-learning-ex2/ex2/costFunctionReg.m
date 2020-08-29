@@ -33,6 +33,19 @@ reg = (lambda/(2*m)) * sum(theta(2:end).^2);
 J = (1/m) * sum(-y' * log(h_theta) - (1 .- y)' * log(1 .- h_theta)) + reg;
 
 
+% theta(2:end) => (n - 1 x 1)
+% [0, theta(2:end)] => (1 + n-1 x 1)
+reg2 = [0; (lambda/m) * theta(2:end)];
+
+% h_theta => m x 1
+% y => (m x 1)
+% X => (m x n)
+% h_theta - y => (m x 1)
+% X' => (n x m)
+% X' * h_theta => (n x m) * (m x 1) => (n x 1)
+grad = (1/m) * (X' * (h_theta - y)) + reg2;
+
+
 
 % =============================================================
 
