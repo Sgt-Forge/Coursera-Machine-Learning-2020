@@ -30,7 +30,13 @@ X = [ones(m, 1) X];
 %       for each row.
 %       
 
-
+% X => (m x n)
+% num_labels = k
+% all_theta => (k x n)
+% all_theta' => (n x k)
+% X * all_theta' => (m x n) * (n x k) => (m x k)
+probabilities = sigmoid(X * all_theta');
+[prob, p] = max(probabilities, [], 2);
 
 
 
