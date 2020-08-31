@@ -95,7 +95,49 @@ Theta2_reg = sum( (Theta2(:,2:end).^2)(:) );
 J += (lambda/(2*m)) * (Theta1_reg + Theta2_reg);
 
 
+% ======================================================================
+%                       Backpropagation
+% ======================================================================
+for t=1:m
+    % Take single training row from X
+    % X => (5000 x 401)
+    % a10 => [1, X(t,:)] => [1, (1 x 400)] => (1 x 401)
+    a10 = [1, X(t,:)];
+    a10 = a10';
+    % Theta1 => (25 x 401)
+    % z2 => Theta1 * a10' => (25 x 401) * (401 x 1) => (25 x 1)
+    z20 = Theta1 * a10;
+    a20 = sigmoid(z20);
+    a20 = [1;a20];
+    % a20 => (26 x 1)
+    % z30 => Theta2 * a20 => (10 x 26) * (26 x 1) => (10 x 1)
+    z30 = Theta2 * a20;
+    a30 = sigmoid(z30);
+    y_t = y_Vec(t,:);
+    y_t = y_t';
+    % a30 => (10 x 1)
+    % y_t => (10 x 1)
+    % delta30 => a30 - y_t => (10 x 1) - (10 x 1) = (10 x 1)
+    delta30 =  a30 - y_t;
 
+    % delta30 => (10 x 1)
+    % Theta2 => (10 x 26)
+    % delta20 => Theta2(:,2:end) * delta30 .*g(z20) => (25 x 10) * (10 x 1) => (25 x 1)
+    delta20 = (Theta2' * delta30) .* [1;sigmoidGradient(z20)];
+    delta20 = delta20(2:end);
+    
+    % Theta2_grad => (10 x 26)
+    % delta30 => (10 x 1)
+    % a20 => (26 x 1)
+    % Theta2 => delta30 * a20' => (10 x 1) * (26 x 1)
+    Theta2_grad += delta30 * a20';
+    % Theta1_grad => (25 x 401)
+    % delta20 => (25 x 1)
+    % a10 => (1 x 401)
+    Theta1_grad += delta20 * a10';
+end
+Theta1_grad /= m;
+Theta2_grad /= m;
 
 
 
