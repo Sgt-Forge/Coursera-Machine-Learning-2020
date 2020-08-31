@@ -87,8 +87,12 @@ y_Vec = (1:num_labels) == y;
 % cost = y_Vec .* z3 => (5000 x 10) .* (5000 x 10) => (5000 x 10)
 % sum(cost(:)) => scalar
 cost = -y_Vec .* log(z3) - (1 .- y_Vec) .* log(1 - z3);
-size(cost)
 J = (1/m) * sum(cost(:));
+
+% Theta1 => (hidden_nodes x n) => (25 x 401)
+Theta1_reg = sum( (Theta1(:,2:end).^2)(:) );
+Theta2_reg = sum( (Theta2(:,2:end).^2)(:) );
+J += (lambda/(2*m)) * (Theta1_reg + Theta2_reg);
 
 
 
