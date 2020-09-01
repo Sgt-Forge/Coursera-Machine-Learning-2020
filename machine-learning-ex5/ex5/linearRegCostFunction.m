@@ -27,7 +27,17 @@ reg_term = (lambda/(2*m)) * sum(theta(2:end).^2);
 % y => (m x 1)
 % h_theta => (m x 1)
 % h_theta - y => (m x 1) - (m x 1) = (m x 1)
-J = (1/(2*m)) * sum((h_theta - y).^2) + reg_term
+J = (1/(2*m)) * sum((h_theta - y).^2) + reg_term;
+
+% h_theta => (m x 1)
+% y => (m x 1)
+% X => (m x n)
+% X' => (n x m)
+% h_theta - y => (m x 1) - (m x 1) => (m x 1)
+% (h_theta - y)' => (1 x m)
+% X' * (h_theta - y) => (n x m) * (m x 1) => (n x 1)
+grad = (1/m) * (X' * (h_theta - y));
+grad(2:end) += (lambda/m) * theta(2:end);
 
 
 
