@@ -15,7 +15,10 @@ X_poly = zeros(numel(X), p);
 %
 % 
 
-
+% X => (n x 1)
+% (1:p) => (1 x p)
+% X(:,1) .^ p => (n x 1) .^ (1 x p) => (n x p)
+X_poly(:,1:p) = X(:,1).^(1:p);
 
 
 

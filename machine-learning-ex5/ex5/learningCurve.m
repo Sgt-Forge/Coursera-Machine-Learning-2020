@@ -53,7 +53,16 @@ error_val   = zeros(m, 1);
 
 % ---------------------- Sample Solution ----------------------
 
+% Learning curve computers the training with successfully larger sets of X and y
+% Use for loop to control size of inputs
+for i = 1:m 
+    sub_X = X(1:i,:);
+    sub_y = y(1:i);
 
+    theta = trainLinearReg(sub_X, sub_y, lambda);
+    error_train(i) = linearRegCostFunction(sub_X, sub_y, theta, 0);
+    error_val(i) = linearRegCostFunction(Xval, yval, theta, 0);
+end
 
 
 
