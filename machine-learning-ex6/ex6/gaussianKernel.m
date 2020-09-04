@@ -16,7 +16,12 @@ sim = 0;
 %
 %
 
-
+% x1 => col vector => (m x 1)
+% x2 => col vector => (m x 1)
+% x1 - x2 => (m x 1) - (m x 1) => (m x 1)
+numer = sum( (x1 - x2).^2 );
+denom = 2 * sigma^2;
+sim = exp(-numer / denom);
 
 
 
