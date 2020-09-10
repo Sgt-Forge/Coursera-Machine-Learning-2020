@@ -25,9 +25,19 @@ centroids = zeros(K, n);
 %
 % Note: You can use a for-loop over the centroids to compute this.
 %
+occurences = zeros(K, 1);
 
-
-
+for k = 1:K
+    for row = 1:m
+        if(idx(row) == k)
+            centroids(k, :) += X(row, :);
+            occurences(k) += 1;
+        end
+    end
+    if(occurences(k) > 0)
+        centroids(k, :) /= occurences(k);
+    end
+end
 
 
 
