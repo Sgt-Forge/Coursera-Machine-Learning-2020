@@ -54,7 +54,12 @@ J = sum(sum((rated - Y).^2)) / 2;
 X_grad = (rated - Y) * Theta;
 Theta_grad = (rated - Y)' * X;
 
+reg_Theta = lambda * sum(sum(Theta.^2)) / 2;
+reg_X = lambda * sum(sum(X.^2)) / 2;
+J = J + reg_Theta + reg_X;
 
+X_grad = (rated - Y) * Theta + lambda*X;
+Theta_grad = (rated - Y)' * X + lambda*Theta;
 
 
 
