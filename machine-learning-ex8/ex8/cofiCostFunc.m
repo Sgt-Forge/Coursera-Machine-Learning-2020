@@ -44,9 +44,15 @@ Theta_grad = zeros(size(Theta));
 % Theta => (4 x 3)
 % X * Theta' => (5 x 3) * (3 x 4) => 5 x 4
 % Y => (5 x 4)
-% X * Theta' - Y => (5 x 4) - (5 x 4) => (5 x 4)
+% R => (5 x 4)
+% rated = R .* (X * Theta') => (5 x 4) .* (5 x 4) => (5 x 4)
+% rated - Y => (5 x 4) - (5 x 4) => (5 x 4)
+% (rated - Y) * Theta => (5 x 4) * (4 x 3) => (5 x 3)
+% (rated - Y)' * X => (4 x 5) * (5 x 3) => (4 x 3)
 rated = R .* (X * Theta');
 J = sum(sum((rated - Y).^2)) / 2;
+X_grad = (rated - Y) * Theta;
+Theta_grad = (rated - Y)' * X;
 
 
 
